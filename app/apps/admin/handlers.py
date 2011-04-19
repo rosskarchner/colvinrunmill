@@ -72,7 +72,7 @@ class SelectLayerHandler(RequestHandler, Jinja2Mixin):
                 name=folder.find(name_tag).text
                 if name: 
                     logging.warning('found folder %s',name)
-                    folders.append(name)
+                    folders.append([folder.attrib['id'],name])
         
         return self.render_response('select_layer.html', 
     	    folders=folders,
@@ -80,4 +80,17 @@ class SelectLayerHandler(RequestHandler, Jinja2Mixin):
 
     def post(self,kml_id):
         br=blobstore.BlobReader(kml_id)
-        raise "oh"
+        kml=extract_kml(br)
+        et = ElementTree(file=kml)
+        root=et.getroot()
+        kml_namespace=root.tag[1:].split('}')[0]
+        folder_tag="{%s}Folder" % kml_namespace
+        name_tag="{%s}name" % kml_namespace
+        layer=self.request.form['layer']
+        for document in list(root):
+            for folder in document.findall(folder_tag):
+                if folder.attrib['id'] != layer: continue
+                raise "oh"
+            
+            
+            
