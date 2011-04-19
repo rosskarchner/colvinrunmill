@@ -1,0 +1,49 @@
+/* @override http://localhost:8080/static/site.css */
+
+body {
+text-align: left;
+	font: 16px "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+
+h1{
+	font-size:1.5em;
+	font-weight: bolder;
+	background-color: #c4ebff;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	margin-bottom: 6px;
+	padding-left: 10px;
+}
+
+h1 a {
+	text-decoration: none;
+	color: #000;
+}
+
+
+#map_canvas { height: 400px; width:600px;
+	margin-right: auto;
+	margin-left: 10px;
+}
+
+#nav {
+	margin-left: 10px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	text-decoration: none;
+}
+
+#nav a {
+	text-decoration: none;
+}
+
+#photos h2{
+	font-weight:bold;
+	margin-top: 10px;
+}
+
+#photos {
+	margin-right: auto;
+	margin-left: 10px;
+	
+}

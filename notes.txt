@@ -1,0 +1,17 @@
+Todo:
+	Data Collector:
+		CSS/HTML cleanup
+		JS Location API
+		
+	Admin:
+		Approval Queue
+		CSV Upload
+		
+	Map:
+		display mills on Google Map
+		Tile generation
+		
+		
+		
+		
+

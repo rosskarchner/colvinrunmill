@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block headextra %}
+ 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+ 	
+ 	<script>
+ 	
+ 	
+ 	function geo_error() {
+  		
+	}
+ 	
+ 	
+ 	function geo_success(p) {
+ 		$('#lat').val(p.coords.latitude);
+ 		$('#lon').val(p.coords.longitude);
+ 		
+	}
+ 	
+ 	
+ 	$(function(){
+ 		
+ 	
+ 	
+ 	if (geo_position_js.init()) {
+  		geo_position_js.getCurrentPosition(geo_success, geo_error);
+		}
+ 	})
+ 	
+ 	</script>
+ 	{% endblock %}
+ 	</HEAD>
+
+{% block content %}
+{% from 'form_macros.html' import form_field %}
+<div>Name and email are required.</div>
+<h2>Add a photo!</h2>
+	<form method="post" action="{{ upload_url }}" enctype="multipart/form-data" id="add-event-form">
+	<fieldset >
+	            <ul>
+	                <li>{{ form_field(form.image, class='medium',) }}</li>
+	              <li>{{ form_field(form.name, class='medium') }}</li>
+	              <li>{{ form_field(form.email, class='medium') }}</li>
+	              <li>{{ form_field(form.phone, class='medium') }}</li>
+
+	                
+
+					
+	            </ul>
+	            
+	 </fieldset>
+
+	 
+	 <fieldset class="submit" id="actions">
+	 {{ form_field(form.lat, class='medium', id='lat') }}
+	 {{ form_field(form.lon, class='medium', id='lon') }}
+	 <input type="hidden" name="lon" id="lon"/>
+	 {{ form_field(form.existing_photo, class='medium') }}
+	 <input type="submit" name="submit" value="Submit" class="submit">
+	 </fieldset>
+	 </form>
+	 
+	 <script src="/static/gears_init.js"></script>
+<script src="/static/geo.js"></script>
+{% endblock %}

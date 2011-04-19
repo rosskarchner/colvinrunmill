@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{% block title %}Friends of Colvin Run Mill{% endblock %}</title>
+
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.2r1/build/reset-fonts-grids/reset-fonts-grids.css"/>
+<link rel="stylesheet" type="text/css" href="/static/site.css"/>
+{% block headextra %}
+<script type="text/javascript"
+    src="http://maps.google.com/maps/api/js?sensor=false">
+</script>
+<script type="text/javascript" src="/mills.js"> </script>
+{% endblock headextra %}
+
+{% block initjs %}
+<script type="text/javascript"> 
+  function initialize() {
+  }
+ 
+</script> 
+{% endblock %}
+
+</head>
+<body onload="initialize()">
+
+<h1> <a href="/">Friends of Colvin Run Mill</a>{% block extratitle %} {% endblock %}</h1>
+{% block content %}
+<div id="nav"><a href="{{ url_for('collector') }}"><img src="/static/add-note.png"/> Add a photo</a></div>
+
+  <div id="map_canvas" style="height: 400px; width:600px;"></div>
+  
+  {% endblock %}
+</body>
+</html>
