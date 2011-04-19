@@ -10,7 +10,7 @@ etc/
 var/
 *.svn
 .DS_Store
-app/lib/dist/*
+app/lib/dist/
 
 # Compiled source #
 ###################
