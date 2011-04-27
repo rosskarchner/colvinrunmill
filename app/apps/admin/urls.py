@@ -23,7 +23,8 @@ rules = [
     Rule('/admin/', endpoint='admin/index', handler='apps.admin.handlers.IndexHandler'),
     Rule('/admin/save-photo', endpoint='admin/save-photo', handler='apps.admin.handlers.SavePhotoHandler'),
     Rule('/admin/uploadkml', endpoint='admin/uploadkml', handler='apps.admin.handlers.UploadKMLHandler'),
-    Rule('/admin/select-layer/<kml_id>/',endpoint='admin/selectlayer',handler='apps.admin.handlers.SelectLayerHandler')
+    Rule('/admin/select-layer/<kml_id>/',endpoint='admin/selectlayer',handler='apps.admin.handlers.SelectLayerHandler'),
+    Rule('/tasks/import_kml_layer', endpoint='tasks/import', handler='apps.admin.tasks.ImportKMLLayer')
 ]
 
 

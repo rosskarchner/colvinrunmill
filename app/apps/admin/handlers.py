@@ -79,18 +79,11 @@ class SelectLayerHandler(RequestHandler, Jinja2Mixin):
     	    )
 
     def post(self,kml_id):
-        br=blobstore.BlobReader(kml_id)
-        kml=extract_kml(br)
-        et = ElementTree(file=kml)
-        root=et.getroot()
-        kml_namespace=root.tag[1:].split('}')[0]
-        folder_tag="{%s}Folder" % kml_namespace
-        name_tag="{%s}name" % kml_namespace
-        layer=self.request.form['layer']
-        for document in list(root):
-            for folder in document.findall(folder_tag):
-                if folder.attrib['id'] != layer: continue
-                raise "oh"
-            
+        importer=taskqueue.Task(url='/tasks/import_kml_layer',
+                      params={'kml_id':kml_id,
+                              'layer':self.request.form['layer']})
+        importer.add()
+        return "thanks!"
+
             
             
