@@ -47,7 +47,6 @@ class ImportKMLLayer(RequestHandler):
             for folder in document.findall(folder_tag):
                 if folder.attrib['id'] != layer: continue
                 mills=folder.findall(placemark_tag)
-                logging.warning(mills)
                 for mill in mills:
                     Mill.from_placemark(mill)
                 

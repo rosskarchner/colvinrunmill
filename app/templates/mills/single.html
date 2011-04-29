@@ -26,6 +26,11 @@ m=new google.maps.Marker({
 
 {% block initjs %}
 <script type="text/javascript"> 
+	$(function(){
+	$("#details tr:odd").addClass("odd");
+	
+	});
+
   function initialize() {
     var latlng = new google.maps.LatLng({{ mill.location.lat }},{{ mill.location.lon }});
     
@@ -94,8 +99,80 @@ var eightteensixtyMapType = new google.maps.ImageMapType(eightteensixtyOptions);
 {% block extratitle %}: {{mill.name}}{% endblock %}
 
 {% block content %}
+<table>
+<tr>
+<td VALIGN=TOP><div id="map_canvas"> </div></td>
+<td VALIGN=TOP>
+<div id="mill">
+<h2>{{mill.name}}
 
-<div id="map_canvas"> </div>
+{% if mill.BuildDate  %}
+  ({{mill.BuildDate}}{% endif %}{% if mill.original_name %},
+as {{mill.original_name}}{% endif %})
+
+
+</h2>
+
+<h3>Location</h3>
+
+{% if mill.NearRoad %}
+<p> {{mill.NearRoad}}</p>
+{% endif %}
+
+<h3>Notes</h3>
+
+{% if mill.Notes %}
+ <p>{{mill.Notes|safe}}</p>
+{% endif %}
+
+
+<h3>Details</h3>
+<table id="details">
+
+{% if mill.MillTypeSub %}
+<tr><td><strong>Mill type</strong>:</td> <td>{{mill.MillTypeSub}} </td></tr>
+
+
+{% endif %}
+
+
+{% if mill.WaterSource %}
+
+{% endif %}
+
+{% if mill.WaterShed  %}
+ <tr> <td><strong>Watershed:</strong> </td> <td>{{mill.WaterShed}}</td> </tr>
+{% endif %}
+
+{% if mill.WheelType  %}
+ <tr> <td><strong>Wheel Type</strong>: </td> <td>{{mill.WheelType}}</td> </tr>
+{% endif %}
+{% if mill.WheelMaterial  %}
+ <tr> <td><strong>Wheel Material</strong>: </td> <td>{{mill.WheelMaterial}}</td> </tr>
+{% endif %}
+{% if mill.WheelLocation  %}
+ <tr> <td><strong>Wheel Location</strong>: </td> <td>{{mill.WheelType}}</td> </tr>
+{% endif %}
+{% if mill.WheelCount  %}
+ <tr> <td><strong>Wheel Count</strong>: </td> <td>{{mill.WheelType}}</td> </tr>
+{% endif %}
+{% if mill.WheelCount  %}
+ <tr> <td><strong>Wheel Type</strong>: </td> <td>{{mill.WheelType}}</td> </tr>
+{% endif %}
+
+</table>
+<h3>Nearby</h3>
+<ul>
+{% for m in nearby %}
+{% if m !=mill %}
+<li><a href="/mills/{{m.mill_no}}/{{m.slug}}">{{m.name}}</a></li>
+{% endif %}
+{% endfor %}
+</ul>
+</div>
+</td>
+</tr>
+</table>
 <div id="photos">
 <h2>Photo Gallery</h2>
 {% for photo in photos %}

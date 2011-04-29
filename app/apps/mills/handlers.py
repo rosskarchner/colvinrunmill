@@ -15,7 +15,15 @@ class MarkersJS(RequestHandler, Jinja2Mixin):
 class MillPage(RequestHandler, Jinja2Mixin):
 	def get(self, mill_no, slug):
 		mill=Mill.get_by_key_name(mill_no)
+		nearby=[]
+		try:
+		    nearby=Mill.proximity_fetch(Mill.all(),
+		    mill.location,
+		    max_results=6
+		    )
+		except:
+		    pass
 		photos=Photo.all().filter('mill =', mill).filter('status =', 'approved')
-		return self.render_response('mills/single.html', mill=mill, photos=photos)
+		return self.render_response('mills/single.html', mill=mill, nearby=nearby[1:],photos=photos)
 
 

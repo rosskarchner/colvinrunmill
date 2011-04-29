@@ -8,6 +8,10 @@ import logging
 
 
 
+def filter_null(value):
+    if "Null" in value: return None
+    return value
+
 
 class TagFactory(object):
     def __init__(self, steal_namespace_from):
@@ -16,6 +20,10 @@ class TagFactory(object):
     def make_tag(self, new_tag):
         namespace=self.steal_namespace_from.tag[1:].split('}')[0]
         return "{%s}%s" % (namespace, new_tag)
+
+
+
+
 
 
 
@@ -59,20 +67,20 @@ class Mill(GeoModel):
 	    lon, lat=[float(num) for num in coords_str.split(',')]
 	    
 	    new_mill=cls(name=name,
-	                original_name=data.get('NameOriginal'),
-	                BuildDate=data.get("BuildDate"),
-	                	WaterSource=data.get("WaterSource"),
-                        WaterShed=data.get("WaterShed"),
-                        WheelType=data.get("WheelType"),
-                        WheelMaterial=data.get("WheelMaterial"),
-                        WheelLocation=data.get("WheelLocation"),
-                        WheelCount=data.get("WheelCount"),
-                        MillType=data.get("MillType"),
-                        MillTypeSub=data.get("MillTypeSub"),
-                        MillStatus=data.get("MillStatus"),
-                        NearRoad=data.get("NearRoad"),
-                        DataSource=data.get("DataSource"),
-                        Notes=data.get("Notes"),
+	                original_name=filter_null(data.get('NameOriginal')),
+	                BuildDate=filter_null(data.get("BuildDate")),
+	                	WaterSource=filter_null(data.get("WaterSource")),
+                        WaterShed=filter_null(data.get("WaterShed")),
+                        WheelType=filter_null(data.get("WheelType")),
+                        WheelMaterial=filter_null(data.get("WheelMaterial")),
+                        WheelLocation=filter_null(data.get("WheelLocation")),
+                        WheelCount=filter_null(data.get("WheelCount")),
+                        MillType=filter_null(data.get("MillType")),
+                        MillTypeSub=filter_null(data.get("MillTypeSub")),
+                        MillStatus=filter_null(data.get("MillStatus")),
+                        NearRoad=filter_null(data.get("NearRoad")),
+                        DataSource=filter_null(data.get("DataSource")),
+                        Notes=filter_null(data.get("Notes")),
                         mill_no=int(data.get("MillId")),
                         key_name=data.get("MillId"),
                         location = db.GeoPt(lat, lon)
