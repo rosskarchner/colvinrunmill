@@ -28,6 +28,9 @@ from utility import extract_kml
 
 
 
+
+
+
 class ImportKMLLayer(RequestHandler):
     def post(self):
         layer=self.request.form['layer']
@@ -39,9 +42,13 @@ class ImportKMLLayer(RequestHandler):
         kml_namespace=root.tag[1:].split('}')[0]
         folder_tag="{%s}Folder" % kml_namespace
         name_tag="{%s}name" % kml_namespace
+        placemark_tag="{%s}Placemark" % kml_namespace
         for document in list(root):
             for folder in document.findall(folder_tag):
                 if folder.attrib['id'] != layer: continue
-                logging.warning("found Layer!")
+                mills=folder.findall(placemark_tag)
+                logging.warning(mills)
+                for mill in mills:
+                    Mill.from_placemark(mill)
                 
         return("OK")
