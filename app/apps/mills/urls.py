@@ -20,7 +20,7 @@ from tipfy import Rule
 """
 rules = [
     Rule('/tasks/update-mill', endpoint='tasks/update-mill', handler='apps.mills.tasks.SaveOrUpdateMillTask'),
-    Rule('/mills.js', endpoint='mills/js', handler='apps.mills.handlers.MarkersJS'),
+    Rule('/mills.json', endpoint='mills/js', handler='apps.mills.handlers.MarkersJS'),
     Rule('/mills/<mill_no>/<slug>', endpoint='mills/single', handler='apps.mills.handlers.MillPage'),
     Rule('/mills/<mill_no>/<slug>/add-photo', endpoint='mills/addphoto', handler='apps.mills.handlers.AddPhoto'),
     Rule('/mills/thanks', endpoint="photo-upload-thanks", handler='apps.mills.handlers.PhotoUploadThanks')

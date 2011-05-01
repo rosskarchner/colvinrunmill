@@ -4,7 +4,7 @@
 <script type="text/javascript"
     src="http://maps.google.com/maps/api/js?sensor=false">
 </script>
-<script type="text/javascript" src="/mills.js"> </script>
+
 
  	<script>
  	
@@ -66,37 +66,42 @@ var eightteensixtyMapType = new google.maps.ImageMapType(eightteensixtyOptions);
     var map = new google.maps.Map(document.getElementById("map_canvas"),
         myOptions);
         
-
-// map.mapTypes.set("sixty", eightteensixtyMapType);
-//map.setMapTypeId("sixty");
-
-   
-//   map.overlayMapTypes.insertAt(0, eightteensixtyMapType);
-        
-        
-        
-        
-        
-        
-        
         
     var infowindow = new google.maps.InfoWindow()
-	for (x in markers){
-    	var m= markers[x];
-    	m.setMap(map);
+// 	for (x in markers){
+//     	var m= markers[x];
+//     	m.setMap(map);
+    	
+     $.getJSON('/mills.json', function(data){
+ 			for (index in data.features){
+ 			feature=data.features[index];
+ 			var m=new google.maps.Marker({
+        		position: new google.maps.LatLng(feature.coordinates[0],feature.coordinates[1]), 
+        		title:feature.properties.name,
+        		permalink:feature.properties.link
+    		});
+ 			
+ 			m.setMap(map);
  
-     	google.maps.event.addListener(m, 'click', function() {
+     		google.maps.event.addListener(m, 'click', function() {
      		var marker=m
      		infowindow.setContent('<a href="'+this.permalink+'">'+ this.title+ '</a>');
      		infowindow.setPosition(this.position);
      		infowindow.open(map);
      		
     		
+  		})
+  		
+
+		}
   		});
     	
     	
     }
-  }
+  
+ 
+
+ 
  
 </script> 
 {% endblock %}
