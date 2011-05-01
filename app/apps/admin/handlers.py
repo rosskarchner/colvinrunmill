@@ -88,7 +88,7 @@ class SelectLayerHandler(RequestHandler, Jinja2Mixin):
                       params={'kml_id':kml_id,
                               'layer':self.request.form['layer']})
         importer.add()
-        return "thanks!"
+        return "That's it! It make yake a few minutes for mills to be updated."
 
             
             
