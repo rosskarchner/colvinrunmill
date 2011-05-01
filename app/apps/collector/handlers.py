@@ -31,8 +31,6 @@ class InputCollector(RequestHandler, Jinja2Mixin, BlobstoreUploadMixin):
         if self.form.validate():
             form=self.form
             photo=Photo(name=form.name.data,
-            email=form.email.data,
-            phone=form.phone.data,
             image=blob_info
             )
             

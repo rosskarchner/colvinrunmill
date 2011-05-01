@@ -87,6 +87,6 @@ class Mill(GeoModel):
                         )
 	    new_mill.update_location()
 	    new_mill.put()
-	                
+	    
 
 

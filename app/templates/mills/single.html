@@ -62,7 +62,7 @@ var eightteensixtyMapType = new google.maps.ImageMapType(eightteensixtyOptions);
         myOptions);
         
 
- map.mapTypes.set("sixty", eightteensixtyMapType);
+//map.mapTypes.set("sixty", eightteensixtyMapType);
 //map.setMapTypeId("sixty");
 
    
@@ -113,15 +113,13 @@ as {{mill.original_name}}{% endif %})
 
 </h2>
 
-<h3>Location</h3>
-
-{% if mill.NearRoad %}
+{% if mill.NearRoad %}<h3>Location</h3>
 <p> {{mill.NearRoad}}</p>
 {% endif %}
 
-<h3>Notes</h3>
 
-{% if mill.Notes %}
+
+{% if mill.Notes %}<h3>Notes</h3>
  <p>{{mill.Notes|safe}}</p>
 {% endif %}
 
@@ -174,11 +172,14 @@ as {{mill.original_name}}{% endif %})
 </tr>
 </table>
 <div id="photos">
-<h2>Photo Gallery</h2>
-{% for photo in photos %}
-<div><a href="{{photo.link()}}"><img src="{{ photo.thumb() }}"/></a></div>
 
-{% endfor %}
+<h2>Photo Gallery</h2>
+<div><a href="/mills/{{mill.mill_no}}/{{mill.slug}}/add-photo">Submit a photo for this mill</a></div>
+<ul>
+{% for photo in photos %}
+<li><a href="{{photo.link()}}"><img src="{{ photo.thumb() }}"/></a></li>
+</div>
+{% endfor %}</ul>
 
 </div>
 

@@ -69,3 +69,14 @@ h3{
 strong{
 	font-weight:bold;
 }
+
+h2{
+    font-weight:bold;
+    margin-top:10px;
+}
+
+#photos li{width:200px;display:inline}
+
+#intro{
+	padding:10px;
+}

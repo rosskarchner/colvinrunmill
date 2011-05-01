@@ -17,6 +17,10 @@ handlers:
 - url: /1860/.*
   script: $PYTHON_LIB/google/appengine/ext/zipserve
 
+- url: /admin/.*
+  script: main.py
+  login: admin
+
 - url: /.*
   script: main.py
 

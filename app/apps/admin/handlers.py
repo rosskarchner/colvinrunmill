@@ -27,11 +27,13 @@ class IndexHandler(RequestHandler, Jinja2Mixin):
     	upload_url = blobstore.create_upload_url(self.url_for('admin/uploadkml'))
     	#upload_url = self.url_for('admin/uploadkml')
     	mills= Mill.all().fetch(1000)
+        photos=Photo.all().filter('status =', 'submitted')
 
-    	#return self.render_response('admin.html')
     	return self.render_response('admin.html', 
     	    upload_kml_form=self.upload_kml_form,
     	    upload_url=upload_url,
+    	    pending_photos=photos,
+    	    mills=mills
     	    )
     	
 
@@ -39,7 +41,12 @@ class IndexHandler(RequestHandler, Jinja2Mixin):
     def upload_kml_form(self):
         return UploadKMLForm()
 
-
+class SavePhotoHandler(RequestHandler):
+    def post(self):
+        photo=db.get(db.Key(self.request.form['photo']))
+        photo.status="approved" if self.request.form['action']=='Save' else "rejected"
+        photo.put()
+        return self.redirect('/admin/')
 
 class UploadKMLHandler(RequestHandler, BlobstoreUploadMixin):
     @cached_property
@@ -50,8 +57,6 @@ class UploadKMLHandler(RequestHandler, BlobstoreUploadMixin):
         
     def post(self):
     	milldata=self.get_uploads('kml')[0]
-    	logging.warning('/admin/select-layer/%s/'% str(milldata.key()))
-    	
         response= self.redirect('/admin/select-layer/%s/'% str(milldata.key()), 302)
         response.data = ''
         return response

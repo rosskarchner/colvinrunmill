@@ -5,6 +5,33 @@
     src="http://maps.google.com/maps/api/js?sensor=false">
 </script>
 <script type="text/javascript" src="/mills.js"> </script>
+
+ 	<script>
+ 	
+ 	
+ 	function geo_error() {
+  		
+	}
+ 	
+ 	
+ 	function geo_success(p) {
+ 		$('#lat').val(p.coords.latitude);
+ 		$('#lon').val(p.coords.longitude);
+ 		
+	}
+ 	
+ 	
+ 	$(function(){
+ 		
+ 	
+ 	
+ 	if (geo_position_js.init()) {
+  		geo_position_js.getCurrentPosition(geo_success, geo_error);
+		}
+ 	})
+ 	
+ 	</script>
+
 {% endblock %}
 
 {% block initjs %}
@@ -75,8 +102,37 @@ var eightteensixtyMapType = new google.maps.ImageMapType(eightteensixtyOptions);
 {% endblock %}
 
 {% block content %}
-<div id="nav"><a href="{{ url_for('collector') }}"><img src="/static/add-note.png"/> Add a photo</a></div>
-
-  <div id="map_canvas" style="height: 500px; width:700px;"></div>
+<table>
+<tr>
+  <td><div id="map_canvas" style="height: 500px; width:600px;"></div></td>
+  <td VALIGN=TOP id="intro">
+  <h2> Explore the mills database: </h2>
+  <ul>
+  {% for mill in mills %}
+  <li><a href="{{url_for('mills/single', mill_no=mill.mill_no,slug=mill.slug ) }}">{{mill.name}}</a></li>
+  {% endfor %}
+  </ul>
+  </td>
   
+  </tr>
+  </table>
+  
+  <div id="photos">
+
+<h2>Recent Photo's</h2>
+<ul>
+{% for photo in photos %}
+<li><a href="{{url_for('mills/single', slug=photo.mill.slug, mill_no=photo.mill.mill_no)}}"><img src="{{ photo.thumb() }}"/></a>
+<br>{{photo.mill.name}}
+</li>
+</div>
+{% else %}
+No photos have been submitted or approved yet.
+{% endfor %}</ul>
+
+</div>
+  
+  
+  
+  <script src="/static/geo.js"></script>
 {% endblock %}

@@ -1,7 +1,28 @@
 {% extends "/base.html" %}
 
 {% block content %}
-	<form method="post" action="{{ upload_url }}"
+
+	 
+	 <h2>Submitted Photo's</h2>
+	 {% for photo in pending_photos %}
+	 <div>
+	 <img src="{{photo.thumb() }}"/>
+	 <form method="post" action="{{ url_for('admin/save-photo') }}">
+	 <input type="hidden" name="photo" value="{{ photo.key() }}"/>
+	 Assign to mill <select name="mill">
+	 {% for mill in mills %}
+	 <option  value="{{mill.mill_no}}"
+	 {% if mill.mill_no==photo.mill.mill_no %}selected=true{%endif%}>
+	 {{mill.name}}({{mill.mill_no}})</option>
+	 {% endfor %}
+	 </select> and <input type="submit" value="Save" name="action"> or <input type="submit" value="Reject" name="action">
+	 
+	 </form>
+	 </div>
+	 
+	 {% endfor %}
+	 <h2>Upload a new KML</h2>
+	 	<form method="post" action="{{ upload_url }}"
 	enctype="multipart/form-data"
 	id="add-event-form">
 
@@ -15,24 +36,6 @@
 	 <input type="submit" name="submit" value="Submit" class="submit">
 
 	 </form>
-	 
-	 <h2>Submitted Photo's</h2>
-	 {% for photo in pending_photos %}
-	 <div>
-	 <img src="{{photo.thumb() }}"/>
-	 <form method="post" action="{{ url_for('admin/save-photo') }}">
-	 <input type="hidden" name="photo" value="{{ photo.key() }}"/>
-	 Assign to mill <select name="mill">
-	 {% for mill in mills %}
-	 <option  value="{{mill.mill_no}}">{{mill.name}}({{mill.mill_no}})</option>
-	 {% endfor %}
-	 </select> and <input type="submit" value="Save" name="action"> or <input type="submit" value="Reject" name="action">
-	 
-	 </form>
-	 </div>
-	 
-	 {% endfor %}
-	 
 	 
 	 
 {% endblock %}

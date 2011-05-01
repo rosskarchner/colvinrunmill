@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block extratitle %}: Add a Photo for {{mill.name}}{% endblock %}
+
+{% block content %}
+<h2>Select a photo of {{mill.name}} to upload</h2>
+<br/>
+<form method="POST" action="{{upload_url}}"  enctype="multipart/form-data">
+Select an file:<input type="file" name="photo"/><br/>
+Your name: <input type="text" name="myname" value="anoynmous"/><br/>
+<br/>
+<input type="submit"/>
+</form>
+
+
+
+{% endblock %}
