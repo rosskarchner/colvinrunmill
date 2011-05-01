@@ -75,7 +75,10 @@ h2{
     margin-top:10px;
 }
 
-#photos li{width:200px;display:inline}
+#photos li{width:200px;
+		display:inline-block
+        zoom: 1;
+        *display: inline;}
 
 #intro{
 	padding:10px;

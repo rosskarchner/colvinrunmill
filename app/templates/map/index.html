@@ -125,7 +125,7 @@ var eightteensixtyMapType = new google.maps.ImageMapType(eightteensixtyOptions);
 <li><a href="{{url_for('mills/single', slug=photo.mill.slug, mill_no=photo.mill.mill_no)}}"><img src="{{ photo.thumb() }}"/></a>
 <br>{{photo.mill.name}}
 </li>
-</div>
+
 {% else %}
 No photos have been submitted or approved yet.
 {% endfor %}</ul>
